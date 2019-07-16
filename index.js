@@ -1,9 +1,38 @@
 
 
 const rootDiv = document.querySelector('.root');
+const nav = document.createElement('div');
+const bodyPage = document.createElement('div');
 
 let catalogOpen = false;
 let aboutTheProductOpen = false;
+
+const arrjson = [
+      {
+        name: 'Кресло "Инжир" Matroluxe',
+        price: 1887,
+        height: 150,
+        width: 30,
+        image: 'https://mebelnuy.com.ua/image/cache/catalog/goods/image/09/094d4bf3-5eb1-11e7-80d0-d8d385808fae_0-800x800.jpg',
+        id: 1
+      },
+      {
+        name: 'Кресло-груша "ФЭТБОЙ" Matroluxe',
+        price: 1887,
+        height: 150,
+        width: 30,
+        image: 'https://mebelnuy.com.ua/image/cache/catalog/goods/image/0f/0f4c3220-5eb1-11e7-80d0-d8d385808fae_0-645x645.jpg',
+        id: 2
+      },
+      {
+        name: 'Кресло "Яблоко" Matroluxe',
+        price: 1887,
+        height: 150,
+        width: 30,
+        image: 'https://mebelnuy.com.ua/image/cache/catalog/goods/image/09/094d4bf0-5eb1-11e7-80d0-d8d385808fae_0-645x645.jpg',
+        id: 3
+      }
+]
 
 //Create first page
 registrationForm = () =>{
@@ -51,17 +80,21 @@ registrationForm();
 
 //Create navigation menu
 navMenu = () => {
-        const nav = document.createElement('div');
+
+        
         const catalogButton = document.createElement('a');
         const exitButton = document.createElement('a');
         
     
         catalogButton.onclick = () => {
+            
             furnitureСatalog();
+            
         }
 
         exitButton.onclick = () => {
             rootDiv.innerHTML = '';
+            nav.innerHTML = '';
             registrationForm();
         }
         
@@ -78,77 +111,39 @@ navMenu = () => {
 }
 
 
+
     //Create catalog page
     furnitureСatalog = () => {
         
         if(!catalogOpen){
+          bodyPage.innerHTML = '';
+            
+            
 
-            const secondPage = document.createElement('div');
+            arrjson.forEach((item) => {
 
-                        //hero
+              let armchair = document.createElement('div');
+              let armchairvName = document.createElement('h2');
+              let armchairImage = document.createElement('img');
+              let armchairPrice = document.createElement('h4');
 
-            let requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
-            var request = new XMLHttpRequest();
-            request.open('GET', requestURL);
-            request.responseType = 'json';
-            request.send();
-            request.onload = function() {
-                var productCatalog = request.response;
-                console.log(productCatalog);
-                
-                populateHeader(productCatalog);
-                showHeroes(productCatalog);
-              }
-
-            function populateHeader(jsonObj) {
-                var myH1 = document.createElement('h1');
-                myH1.textContent = jsonObj['squadName'];
-                secondPage.appendChild(myH1);
-                
-                var myPara = document.createElement('p');
-                myPara.textContent = 'Hometown: ' + jsonObj['homeTown'] + ' // Formed: ' + jsonObj['formed'];
-                secondPage.appendChild(myPara);
-            }
-
-            function showHeroes(jsonObj) {
-                var heroes = jsonObj['members'];
-                    
-                for (var i = 0; i < heroes.length; i++) {
-                  var myArticle = document.createElement('article');
-                  var myH2 = document.createElement('h2');
-                  var myPara1 = document.createElement('p');
-                  var myPara2 = document.createElement('p');
-                  var myPara3 = document.createElement('p');
-                  var myList = document.createElement('ul');
+              armchairImage.onclick = () => {
+                aboutTheProduct(item)
+              };
               
-                  myH2.textContent = heroes[i].name;
-                  myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
-                  myPara2.textContent = 'Age: ' + heroes[i].age;
-                  myPara3.textContent = 'Superpowers:';
-                      
-                  var superPowers = heroes[i].powers;
-                  for (var j = 0; j < superPowers.length; j++) {
-                    var listItem = document.createElement('li');
-                    listItem.textContent = superPowers[j];
-                    myList.appendChild(listItem);
-                  }
-              
-                  myArticle.appendChild(myH2);
-                  myArticle.appendChild(myPara1);
-                  myArticle.appendChild(myPara2);
-                  myArticle.appendChild(myPara3);
-                  myArticle.appendChild(myList);
-              
-                  secondPage.appendChild(myArticle);
-                }
-              }
+              armchairvName.innerText = item.name;
+              armchairPrice.innerText = item.price;
+              armchairImage.src = item.image;
 
-              //hero
+              armchair.appendChild(armchairvName);
+              armchair.appendChild(armchairImage);
+              armchair.appendChild(armchairPrice);
+              bodyPage.appendChild(armchair);
 
-            secondPage.className = 'second page';
-            secondPage.innerHTML = 'вторая страница'; 
-
-            rootDiv.appendChild(secondPage);
+            })
+            
+            rootDiv.appendChild(bodyPage);
+            
             catalogOpen = true;
         }
         catalogOpen = true; 
@@ -156,5 +151,32 @@ navMenu = () => {
     }
 
 
+aboutTheProduct = (prod) => {
 
 
+  bodyPage.innerHTML = '';
+
+  let armchairvName = document.createElement('h2');
+  let armchairImage = document.createElement('img');
+  let armchairPrice = document.createElement('h4');
+  let armchairWidth = document.createElement('h4');
+  let armchairHeight = document.createElement('h4');
+
+
+  armchairvName.innerText = prod.name;
+  armchairPrice.innerText = prod.price;
+  armchairImage.src = prod.image;
+  armchairWidth.innerText = prod.width;
+  armchairHeight.innerText = prod.height;
+
+
+  bodyPage.appendChild(armchairvName);
+  bodyPage.appendChild(armchairImage);
+  bodyPage.appendChild(armchairPrice);
+  bodyPage.appendChild(armchairWidth);
+  bodyPage.appendChild(armchairHeight);
+
+  rootDiv.appendChild(bodyPage);  
+
+  catalogOpen = false; 
+}
