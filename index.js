@@ -169,14 +169,141 @@ aboutTheProduct = (prod) => {
   armchairWidth.innerText = prod.width;
   armchairHeight.innerText = prod.height;
 
+  //Slider
 
+  const carousel = document.createElement('ul');
+  carousel.id = 'slider';
+  
+  
+  
+
+
+  arrjson.forEach((item, i) => {
+    console.log(i, item);
+    
+      const slide =  document.createElement('li');
+      const img = document.createElement('img');
+      
+      slide.className = 'slide';
+
+      img.src = item.image;
+      slide.style.listStyleType = 'none';
+      console.log(slide.style);
+      
+
+
+      
+
+      
+
+
+
+      slide.appendChild(img);
+      carousel.appendChild(slide);
+      
+  });
+  let li = document.getElementsByClassName('slide');
+  let i = 0;
+  setInterval(() => {
+   
+    console.log(li[i].style);
+    
+    li[i].style.left = '-100%';
+    li[i].style.zIndex =  1;
+    console.log(i);
+    if(i === 2){
+      i = 0;
+      li[i].style.left = '0%';
+      li[i].style.zIndex =  1;
+
+    }
+    else{
+      i++;
+      li[i].style.left = '0%';
+      li[i].style.zIndex =  1;
+    }
+    
+    
+    
+  }, 4000);
+
+  
+  
+//slider
+
+  
+  
   bodyPage.appendChild(armchairvName);
   bodyPage.appendChild(armchairImage);
   bodyPage.appendChild(armchairPrice);
   bodyPage.appendChild(armchairWidth);
   bodyPage.appendChild(armchairHeight);
 
+//carousel
+  bodyPage.appendChild(carousel);  
+  //carousel
+  
   rootDiv.appendChild(bodyPage);  
 
   catalogOpen = false; 
 }
+/*
+element.style {
+    height: 500px;
+    display: flex;
+    width: 645px;
+    margin: 0 ayto;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+li 
+    list-style-type: none;
+    text-align: center;
+    margin: 10px auto;
+*/
+
+
+//карусель на boostrap
+
+// let carousel = document.createElement('div');
+
+// //first div
+// carousel.id = "carouselExampleSlidesOnly";
+// carousel.className = "carousel slide";
+// carousel.setAttribute('data-ride', 'carousel');
+
+
+
+// let ul = document.createElement('div');
+// // ul.display = 'block';
+// ul.className = 'carousel-inner';
+
+
+
+// arrjson.forEach((item, i) => {
+//   console.log(item, i);
+  
+//   let li = document.createElement('div');
+//   // li.display = 'block';
+//   if (i == 0){
+//     li.className = "carousel-item active";
+//   }
+//   else {
+//     li.className = "carousel-item";
+//   }
+//   // li.style.height = '645px';
+
+//   let img = document.createElement('img');
+//   img.src = item.image;
+//   img.className = "d-block w-100";
+//   // li.style.listStyleType = 'none';
+//   li.appendChild(img);
+//   ul.appendChild(li);
+// });
+
+
+
+
+// carousel.appendChild(ul);
+// bodyPage.appendChild(carousel);
